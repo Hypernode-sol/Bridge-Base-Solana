@@ -85,22 +85,70 @@ Examples include:
 ```bash
 git clone https://github.com/Hypernode-sol/Bridge-Base-Solana.git
 cd Bridge-Base-Solana
-pnpm install
+
+# Install root dependencies
+npm install
+
+# Install Solana dependencies
+cd solana && bun install
+
+# Install Base dependencies (Foundry)
+cd ../base && forge install
 ```
 
 ### Local Development
 
-Start the development environment:
+**Build all components:**
 
 ```bash
-pnpm dev
+# From root directory
+npm run build
+
+# Or build individually
+npm run build:solana    # Build Anchor program
+npm run build:base      # Build Solidity contracts
+npm run build:relayer   # Build relayer (coming soon)
 ```
 
-Deploy bridge contracts to test networks:
+**Run tests:**
 
 ```bash
-pnpm run deploy:solana
-pnpm run deploy:base
+# Test Solana program
+cd solana && anchor test
+
+# Test Base contracts
+cd base && forge test
+
+# Run with verbose output
+forge test -vvv
+```
+
+**Deploy to testnets:**
+
+```bash
+# Deploy Solana program to devnet
+cd solana
+bun run program:deploy devnet-alpha
+
+# Deploy Base contracts to Base Sepolia
+cd base
+make deploy
+
+# Initialize the bridge
+cd solana
+bun run tx:initialize devnet-alpha
+```
+
+**Set up environment:**
+
+```bash
+# Copy environment template
+cp .env.example .env
+
+# Edit with your configuration
+# - Add your private keys (NEVER commit these!)
+# - Set RPC endpoints
+# - Configure bridge addresses after deployment
 ```
 
 ---
@@ -132,11 +180,32 @@ You can visualize bridge metrics and flow on:
 ```
 Bridge-Base-Solana/
 │
-├── contracts/            # Smart contracts for Solana and Base
-├── relayer/              # Off-chain relayer logic
-├── verifier/             # Cross-chain proof verifier
-├── scripts/              # Deployment and testing scripts
-├── tests/                # Unit and integration tests
+├── base/                    # Solidity contracts for Base (EVM)
+│   ├── src/                # Contract source files
+│   │   ├── Bridge.sol      # Main bridge contract
+│   │   ├── Twin.sol        # Execution contract
+│   │   └── CrossChainERC20.sol  # Wrapped tokens
+│   ├── script/             # Deployment scripts (Foundry)
+│   ├── test/               # Contract tests
+│   └── Makefile            # Build automation
+│
+├── solana/                  # Rust/Anchor program for Solana
+│   ├── programs/
+│   │   ├── bridge/         # Main bridge program
+│   │   └── base_relayer/   # Relayer program
+│   ├── scripts/            # Transaction scripts (Bun/TypeScript)
+│   └── Anchor.toml         # Anchor configuration
+│
+├── scripts/                 # Cross-chain deployment scripts
+│   └── src/internal/sol/   # Solana integration utilities
+│
+├── clients/                 # Client libraries
+│   └── ts/                 # TypeScript client SDK
+│
+├── relayer/                 # Off-chain relayer (planned)
+│
+├── CONTRIBUTING.md          # Contribution guidelines
+├── .env.example             # Environment variables template
 └── README.md
 ```
 
@@ -144,15 +213,60 @@ Bridge-Base-Solana/
 
 ## 🧪 Testing
 
+### Unit Tests
+
+**Test Base contracts (Foundry):**
 ```bash
-pnpm test
+cd base
+
+# Run all tests
+forge test
+
+# Run specific test
+forge test --match-test testBridgeFlow
+
+# Run with verbose output
+forge test -vvv
+
+# Check test coverage
+make coverage
 ```
 
-Simulate a bridge transaction:
+**Test Solana program (Anchor):**
+```bash
+cd solana
+
+# Run all tests
+anchor test
+
+# Run with logs
+anchor test --skip-local-validator
+```
+
+### Integration Tests
+
+Simulate a full bridge transaction flow:
 
 ```bash
-pnpm run simulate
+cd solana
+
+# Bridge SOL from Solana to Base
+bun run tx:bridge-sol devnet-alpha
+
+# Bridge SPL tokens from Solana to Base
+bun run tx:bridge-spl devnet-alpha
+
+# Wrap tokens
+bun run tx:wrap-token devnet-alpha
 ```
+
+### Manual Testing
+
+1. Deploy contracts to testnets (see "Deploy to testnets" above)
+2. Initialize the bridge on both chains
+3. Send test transactions
+4. Verify bridging in both directions
+5. Check balances and events on both chains
 
 ---
 
@@ -194,8 +308,35 @@ Audits are planned in **Phase 3** of the project roadmap.
 
 ## 🤝 Contributing
 
-Contributions are welcome!  
-Please open an issue or pull request on GitHub.
+We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
+
+### How to Contribute
+
+1. **Fork the repository** on GitHub
+2. **Clone your fork** locally
+3. **Create a feature branch**: `git checkout -b feature/your-feature-name`
+4. **Make your changes** following our code standards
+5. **Test thoroughly** with both unit and integration tests
+6. **Commit your changes** with clear, descriptive messages
+7. **Push to your fork**: `git push origin feature/your-feature-name`
+8. **Open a Pull Request** with a detailed description
+
+### Guidelines
+
+- All code must be in **English** (comments, docs, variables)
+- Follow existing code style (use `forge fmt` for Solidity, `rustfmt` for Rust)
+- Write tests for new features (aim for >80% coverage)
+- Update documentation as needed
+- Keep commits focused and atomic
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines, code standards, and development workflow.
+
+### Need Help?
+
+- 💬 Join our Discord for real-time support
+- 📝 Open a GitHub Discussion for questions
+- 🐛 Report bugs via GitHub Issues
+- 📧 Email: contact@hypernodesolana.org
 
 ---
 
