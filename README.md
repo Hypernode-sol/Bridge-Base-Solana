@@ -333,7 +333,6 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines, code standards
 
 ### Need Help?
 
-- 💬 Join our Discord for real-time support
 - 📝 Open a GitHub Discussion for questions
 - 🐛 Report bugs via GitHub Issues
 - 📧 Email: contact@hypernodesolana.org

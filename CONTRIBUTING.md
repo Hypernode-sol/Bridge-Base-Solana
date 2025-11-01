@@ -393,7 +393,7 @@ We welcome feature suggestions! Please:
 2. **Describe the use case** clearly
 3. **Explain the benefits** to users
 4. **Consider implementation** complexity
-5. **Discuss in Discord** before major changes
+5. **Open a GitHub Discussion** for major changes
 
 ---
 
@@ -419,7 +419,6 @@ We welcome feature suggestions! Please:
 
 ## 📞 Getting Help
 
-- **Discord**: Join our community for real-time help
 - **GitHub Issues**: For bug reports and feature requests
 - **GitHub Discussions**: For questions and general discussion
 - **Email**: contact@hypernodesolana.org
