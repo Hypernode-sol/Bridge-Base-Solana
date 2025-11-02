@@ -60,14 +60,14 @@ Examples include:
 
 ## 🔗 Related Repositories
 
-- [Hypernode-AI-Deployer](https://github.com/Hypernode-sol/Hypernode-AI-Deployer)  
+- [Hypernode-AI-Deployer](https://github.com/Hypernode-sol/Hypernode-AI-Deployer)
   Automated model and agent deployment pipeline.
 
-- [Hypernode-Facilitator](https://github.com/Hypernode-sol/Hypernode-Facilitator)  
+- [Hypernode-Facilitator](https://github.com/Hypernode-sol/Hypernode-Facilitator)
   Manages coordination, consensus, and telemetry of bridge events.
 
-- [Network-and-Communication-Infrastructure](https://github.com/Hypernode-sol/Network-and-Communication-Infrastructure)  
-  Provides the base layer for network transport and message serialization.
+- [Hypernode-Site-App](https://github.com/Hypernode-sol/Hypernode-Site-App)
+  Main application providing network coordination and communication infrastructure.
 
 ---
 
