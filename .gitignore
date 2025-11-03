@@ -61,3 +61,43 @@ temp/
 # AI/Development instructions (local only)
 claude.md
 claude-instructions.md
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Test coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# OS specific
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor backups
+*.bak
+*.swp
+*.swo
+*~
+\#*\#
+
+# Development
+.history/
+.vercel/
+.turbo/
